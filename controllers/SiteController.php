@@ -126,5 +126,14 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-    
+
+    /**
+     * Metoda vykreslí View ceníku.
+     *
+     * @return string Vyrenderovaný pohled na ceník.
+     */
+    public function actionPriceList()
+    {
+        return $this->render('price-list');
+    }
 }

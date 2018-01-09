@@ -13,6 +13,28 @@ class User extends ActiveRecord implements IdentityInterface
         return 'user';
     }
 
+    public function rules()
+    {
+        return [
+            [['username', 'password'], 'required'],
+            [['email'], 'email']
+        ];
+    }
+
+
+    public function attributeLabels()
+    {
+        return [
+            'uid' => 'Identifikátor uživatele',
+            'email' => 'Emailová adresa',
+            'username' => 'Uživatelské jméno',
+            'active' => 'Aktivní',
+            'password' => 'Heslo',
+            'auth_key' => 'Autorizační klíč',
+            'access_token' => 'Přístupový token',
+        ];
+    }
+
     /**
      * @inheritdoc
      */
