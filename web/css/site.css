@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    background: url("/img/wallpaper.jpg") no-repeat;
 }
 
 .wrap {
@@ -112,4 +113,8 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+.mainblock {
+    background-color: rgba(110, 110, 110, 0.5);
 }
