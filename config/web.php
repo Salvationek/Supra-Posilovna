@@ -6,6 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'language' => 'cs-CZ',
+    'timeZone' => 'Europe/Prague',
     'name' => 'Supra Posilovna',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -56,7 +57,14 @@ $config = [
             ],
         ],
         */
-    ],
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'timeFormat' => 'H:i:s',
+            'currencyCode' => 'CZK',
+        ],
+        ],
     'params' => $params,
 ];
 
