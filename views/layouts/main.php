@@ -44,12 +44,12 @@ AppAsset::register($this);
             ['label' => 'Kontakty', 'url' => ['/site/contact']],
             ['label' => 'Uživatelé', 'url' => ['/user/index']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Přihlásit', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Odhlásit (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
