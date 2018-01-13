@@ -38,7 +38,7 @@ CREATE TABLE `auth_item` (
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
   ('admin',	1,	'Administrátor',	NULL,	NULL,	NULL,	NULL),
-  ('uzivatel',	2,	'Uživatel',	NULL,	NULL,	NULL,	NULL);
+  ('uzivatel',	1,	'Uživatel',	NULL,	NULL,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `auth_item_child`;
 CREATE TABLE `auth_item_child` (

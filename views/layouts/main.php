@@ -43,6 +43,7 @@ AppAsset::register($this);
             ['label' => 'O nás', 'url' => ['/site/about']],
             ['label' => 'Kontakty', 'url' => ['/site/contact']],
             ['label' => 'Uživatelé', 'url' => ['/user/index']],
+            ['label' => 'Registrace', 'url' => ['/site/registration']],
             ['label' => 'Rezervace', 'url' => ['/reservation/list']],
             ['label' => 'Rezervační systém', 'url' => ['/reservation/view']],
             Yii::$app->user->isGuest ? (

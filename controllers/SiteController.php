@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\RegistrationForm;
 use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
@@ -135,5 +136,20 @@ class SiteController extends Controller
     public function actionPriceList()
     {
         return $this->render('price-list');
+    }
+
+    public function actionRegistration() {
+        $model = new RegistrationForm();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->saveUser()){
+                Yii::$app->session->setFlash('success', "Uživatel úspěšně zaregistrován.");
+                return $this->redirect(['login', 'username' => $model->user->username]);
+            }
+        }
+
+        return $this->render('registration', [
+            'model' => $model,
+        ]);
     }
 }
