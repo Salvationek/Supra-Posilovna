@@ -39,12 +39,10 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Úvod', 'url' => ['/site/index']],
-            ['label' => 'Ceník', 'url' => ['/site/price-list']],
-            ['label' => 'O nás', 'url' => ['/site/about']],
-            ['label' => 'Kontakty', 'url' => ['/site/contact']],
-            ['label' => 'Uživatelé', 'url' => ['/user/index']],
-            ['label' => 'Registrace', 'url' => ['/site/registration']],
-            ['label' => 'Rezervace', 'url' => ['/reservation/list']],
+            ['label' => 'Uživatelé', 'url' => ['/user/index'], 'visible' => Yii::$app->user->can('admin')],
+            ['label' => 'Registrace', 'url' => ['/site/registration'], 'visible' => Yii::$app->user->isGuest],
+            ['label' => 'Správa rezervací', 'url' => ['/reservation/list'], 'visible' => Yii::$app->user->can('admin')],
+            ['label' => 'Upravit účet', 'url' => ['/user/update', 'id' => Yii::$app->user->id], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'Rezervační systém', 'url' => ['/reservation/view']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Přihlásit', 'url' => ['/site/login']]

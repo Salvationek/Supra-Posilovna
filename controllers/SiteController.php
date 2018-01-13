@@ -79,7 +79,8 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            Yii::$app->session->setFlash('success', "Uživatel úspěšně přihlášen.");
+            return $this->redirect(['site/index']);
         }
 
         $model->password = '';
@@ -105,38 +106,6 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
-    /**
-     * Metoda vykreslí View ceníku.
-     *
-     * @return string Vyrenderovaný pohled na ceník.
-     */
-    public function actionPriceList()
-    {
-        return $this->render('price-list');
-    }
 
     public function actionRegistration() {
         $model = new RegistrationForm();

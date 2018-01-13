@@ -6,9 +6,37 @@ use app\models\Reservation;
 use app\models\ReservationForm;
 use app\models\ReservationItem;
 use Yii;
+use yii\filters\AccessControl;
 
 class ReservationController extends \yii\web\Controller
 {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['list', 'reservation','view'],
+                        'roles' => ['admin']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view','reservation' ],
+                        'roles' => ['uzivatel'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['view'],
+                        'roles' => ['?'],
+                    ],
+                ]
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
         return $this->render('index');

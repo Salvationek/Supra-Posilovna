@@ -32,8 +32,15 @@ class UserController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['view', 'index'],
+                        'actions' => ['update', 'delete', 'view'],
                         'roles' => ['uzivatel'],
+                        'matchCallback' => function ($rule, $action) {
+                            $id = Yii::$app->request->get('id');
+                            if (Yii::$app->user->id ==  $id) {
+                                return true;
+                            }
+                            return false;
+                        }
                     ],
                 ]
             ],
