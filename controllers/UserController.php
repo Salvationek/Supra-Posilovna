@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\UserForm;
 use Yii;
 use app\models\User;
 use app\models\search\SearchUser;
@@ -74,13 +75,12 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new UserForm();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->setPassword($model->password);
-            if ($model->save()){
+            if ($model->saveUser()){
                 Yii::$app->session->setFlash('success', "Uživatel úspěšně vytvořen.");
-                return $this->redirect(['view', 'id' => $model->uid]);
+                return $this->redirect(['view', 'id' => $model->user->uid]);
             }
         }
 
@@ -98,14 +98,16 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = new UserForm($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->setPassword($model->password);
-            if ($model->save()){
-            Yii::$app->session->setFlash('success', "Uživatel úspěšně upraven.");
-            return $this->redirect(['view', 'id' => $model->uid]);
-        }
+            if ($model->saveUser()){
+                Yii::$app->session->setFlash('success', "Uživatel úspěšně upraven.");
+                return $this->redirect(['view', 'id' => $model->uid]);
+            }
+            else {
+                Yii::$app->session->setFlash('danger', "Při ukládání uživatele nastala chyba.");
+            }
         }
 
         return $this->render('update', [

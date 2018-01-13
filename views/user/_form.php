@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-
+    <?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Uložit', ['class' => 'btn btn-success']) ?>
