@@ -95,5 +95,13 @@ class Reservation extends \yii\db\ActiveRecord
         return self::quartersToTime($this->quarter);
     }
 
+    public static function findByDate($date)
+    {
+        return self::findAll(
+            [
+                'date' => $date,
+            ]
+        );
+    }
 }
 

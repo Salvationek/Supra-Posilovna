@@ -38,7 +38,11 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            'verifyCode' => 'Ověřovací kod',
+            'name' => 'Jméno',
+            'email' => 'Emailová adresa',
+            'subject' => 'Téma',
+            'body' => 'Text',
         ];
     }
 

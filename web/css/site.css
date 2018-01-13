@@ -124,13 +124,51 @@ a.desc:after {
 th {
     background-color: black;
     opacity: 0.7;
+    border: 1px solid #ffffff11;
 }
 
 td {
     background-color: black;
     opacity: 0.7;
+    border: 1px solid #ffffff11;
+}
+
+td:hover {
+    background-color: white;
 }
 
 table a {
     color: #57b1ff;
+}
+
+.table tbody tr > td.success {
+    background-color: green !important;
+}
+
+.table tbody tr > td.danger {
+    background-color: red !important;
+}
+
+.table tbody tr > td.warning {
+    background-color: orange !important;
+}
+
+.table tbody tr > td.info {
+    background-color: blue !important;
+}
+
+.table-hover tbody tr:hover > td.success {
+    background-color: #d0e9c6 !important;
+}
+
+.table-hover tbody tr:hover > td.danger {
+    background-color: #ebcccc !important;
+}
+
+.table-hover tbody tr:hover > td.warning {
+    background-color: #faf2cc !important;
+}
+
+.table-hover tbody tr:hover > td.info {
+    background-color: #c4e3f3 !important;
 }

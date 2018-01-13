@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\Reservation;
+use app\models\ReservationForm;
+use app\models\ReservationItem;
 use Yii;
 
 class ReservationController extends \yii\web\Controller
@@ -18,9 +20,44 @@ class ReservationController extends \yii\web\Controller
         return $this->render('list', ['model' => $model]);
     }
 
-    public function actionView()
+    public function actionView($date = null)
     {
-        return $this->render('view');
+        if ($date === null)
+        {
+             $date = date('Y-m-d' );
+        }
+        $reservation = Reservation::findByDate($date);
+        $reservation_item = ReservationItem::find()->all();
+        return $this->render('view', [
+            'date' => $date,
+            'reservation' => $reservation,
+            'reservation_item' => $reservation_item,
+        ]);
+
+    }
+
+    public function actionReservation($date = null, $quarter = null, $riid = null, $uid = null)
+    {
+        $reservation = new ReservationForm();
+        $reservation->date=(isset($date)? $date: date('Y-m-d'));
+        $reservation->quarter_from=(isset($quarter)? $quarter: null);
+        $reservation->quarter_to=(isset($quarter)? $quarter + 1: null);
+        $reservation->riid=$riid;
+        $reservation->uid=(isset($uid)? $uid: Yii::$app->user->id);
+        if ($reservation->load(Yii::$app->request->post())) {
+            if ($reservation->persist()) {
+                Yii::$app->session->setFlash('success', "Rezervace úspěšně uložena");
+            } else {
+                Yii::$app->session->setFlash('danger', "Chyba při ukládání rezervace.");
+            }
+            return $this->redirect(['reservation/view']);
+        } else {
+            $reservation_item = ReservationItem::find()->all();
+            return $this->render('reservation', [
+                'reservation' => $reservation,
+                'reservation_item' => $reservation_item,
+            ]);
+        }
     }
 
     public function actionDelete($date, $quarter, $riid, $uid)
