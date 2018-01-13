@@ -172,3 +172,9 @@ table a {
 .table-hover tbody tr:hover > td.info {
     background-color: #c4e3f3 !important;
 }
+
+form div.required label.control-label:after {
+    content: " * ";
+    color: red;
+    font-style: oblique;
+}

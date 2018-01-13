@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($model, 'username') ?>
-        <?= $form->field($model, 'email') ?>
+        <?= $form->field($model, 'email')-> input('email') ?>
         <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true]) ?>
 
