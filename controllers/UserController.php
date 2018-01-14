@@ -1,7 +1,12 @@
 <?php
+/**
+ * @see https://github.com/Salvationek/Supra-Posilovna
+ * @author Martin Mašata <masatma1@fel.cvut.cz>
+ */
 
 namespace app\controllers;
 
+use app\models\Theme;
 use app\models\UserForm;
 use Yii;
 use app\models\User;
@@ -12,12 +17,18 @@ use yii\filters\VerbFilte;
 use yii\filters\AccessControl;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * Controller pro administraci uživatelů. Obsažené akce souvisí se zobrazením a operacemi nad uživateli.
+ * Většina akcí vyžaduje přihlášeného administrátora.
+ *
+ * @see https://github.com/Salvationek/Supra-Posilovna
+ * @author Martin Mašata <masatma1@fel.cvut.cz>
  */
 class UserController extends Controller
 {
     /**
-     * @inheritdoc
+     * Metoda behaviors povolí vstup na konkretní stránky pro přidělené role uživatelů. Je volaná frameworkem před voláním konkrétní akce.
+     * Jde o poděděnou metodu z předka \yii\base\Component.
+     * @return array
      */
     public function behaviors()
     {
@@ -48,7 +59,7 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
+     * Metoda, která vyrenderuje seznam všech zaregistrovaných uživatelů v databázi a jejich informace.
      * @return mixed
      */
     public function actionIndex()
@@ -63,10 +74,9 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
-     * @param string $id
+     * Metoda, která slouží k zobrazení konkrétních informací o uživateli.
+     * @param string $id Identifikátor uživatele.
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -76,8 +86,8 @@ class UserController extends Controller
     }
 
     /**
-     * Creates a new User model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Metoda Create, která vytvoří nového uživatele v databázi.
+     * Po úspěšném zapsání do databáze přijde zpráva o úspěchu a přesměruje nás to na informace o nově založeném uživateli.
      * @return mixed
      */
     public function actionCreate()
@@ -97,15 +107,16 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing User model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * Metoda, která pozměnuje již existující uživatele.
+     * Pokud je uložení dat úspěšné přesměruje zpět na informaci o konkrétním uživateli a vypíše zprávu o úspěšné úpravě.
+     * Při neúspěšném uložení dat přijde zpráva o chybě.
+     * @param string $id Identifikátor uživatele.
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
         $model = new UserForm($id);
+        $themes = Theme::find()->all();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->saveUser()){
@@ -119,15 +130,15 @@ class UserController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'themes' => $themes
         ]);
     }
 
     /**
-     * Deletes an existing User model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * Metoda, která smaže informace o uživateli z databáze.
+     * Pokud je smázání uživatele z databáze úspěšné přesměruje zpět na index uživatelů.
+     * @param string $id Identifikátor uživatele.
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
@@ -137,11 +148,11 @@ class UserController extends Controller
     }
 
     /**
-     * Finds the User model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return User the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * Najde v databázi uživatele podle identifikátoru uživatele.
+     * Pokud není uživatel nalezen přijde zpráva, že požadovaná stránka neexistuje.
+     * @param string $id Identifikátor uživatele.
+     * @return Vrátí informace o uživateli.
+     * @throws NotFoundHttpException Když není uživatel nalezen.
      */
     protected function findModel($id)
     {

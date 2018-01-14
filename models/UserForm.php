@@ -21,6 +21,7 @@ class UserForm extends Model
     public $email;
     public $password;
     public $password_repeat;
+    public $tid;
 
     public function __construct($uid = null) {
         if (isset($uid)) {
@@ -43,7 +44,8 @@ class UserForm extends Model
             ],
             [['password'], 'string', 'min' => 6],
             [['password_repeat'], 'compare', 'compareAttribute' => 'password', 'message' => 'Hesla se neshodují' ],
-            [['email'], 'email']
+            [['email'], 'email'],
+            [['tid'], 'integer']
         ];
     }
 
@@ -56,6 +58,7 @@ class UserForm extends Model
             'username' => 'Uživatelské jméno',
             'password' => 'Heslo',
             'password_repeat' => 'Kontrola hesla',
+            'tid' => 'Téma',
         ];
     }
 
@@ -67,6 +70,7 @@ class UserForm extends Model
                 $this->user->username = $this->username;
                 $this->user->email = $this->email;
                 $this->user->setPassword($this->password);
+                $this->user->tid = $this->tid;
                 if ($this->user->save(false)) {
                     $auth = Yii::$app->authManager;
                     $auth->revokeAll($this->user->uid);
@@ -90,5 +94,6 @@ class UserForm extends Model
         $this->email = $this->user->email;
         $this->password = '';
         $this->password_repeat = '';
+        $this->tid = $this->user->tid;
     }
 }

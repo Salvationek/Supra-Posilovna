@@ -89,6 +89,18 @@ INSERT INTO `reservation_item` (`riid`, `description`) VALUES
   (3,	'spinning'),
   (4,	'bazén');
 
+DROP TABLE IF EXISTS `theme`;
+CREATE TABLE `theme` (
+  `tid` int(11) NOT NULL AUTO_INCREMENT,
+  `value` varchar(1024) COLLATE utf8_czech_ci NOT NULL,
+  `description` varchar(1024) COLLATE utf8_czech_ci DEFAULT NULL,
+  PRIMARY KEY (`tid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+INSERT INTO `theme` (`tid`, `value`, `description`) VALUES
+  (1,	'site.css',	'Standartní téma'),
+  (2,	'site_theme1.css',	'Téma 1');
+
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `uid` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'identifikátor uživatele',
@@ -98,10 +110,13 @@ CREATE TABLE `user` (
   `password` varchar(255) COLLATE utf8_czech_ci DEFAULT NULL COMMENT 'heslo',
   `active` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'aktivní',
   `access_token` varchar(255) COLLATE utf8_czech_ci DEFAULT NULL COMMENT 'přístupový token',
-  PRIMARY KEY (`uid`)
+  `tid` int(11) DEFAULT NULL COMMENT 'téma',
+  PRIMARY KEY (`uid`),
+  KEY `tid` (`tid`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`tid`) REFERENCES `theme` (`tid`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
-INSERT INTO `user` (`uid`, `username`, `email`, `auth_key`, `password`, `active`, `access_token`) VALUES
-  (1,	'supraadmin',	'',	NULL,	'$2y$13$7igGliuKwcgTxFskTVYZaexMEtHSTS3Ve/cfUozt4V5P1xEFgwdP2',	1,	NULL);
+INSERT INTO `user` (`uid`, `username`, `email`, `auth_key`, `password`, `active`, `access_token`, `tid`) VALUES
+  (1,	'supraadmin',	'',	NULL,	'$2y$13$Cqtdv/OV.vXwZaW0vBW6..aOmscAfJGGAP4yx4Vo0/lpYGgBDRQjq',	1,	NULL,	2);
 
--- 2018-01-13 21:48:16
+-- 2018-01-14 21:42:13

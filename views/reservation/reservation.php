@@ -1,14 +1,17 @@
 <?php
+/**
+ * Krátký popis reservation.
+ *
+ * Dlouhý popis reservation.
+ *
+ * @see https://github.com/Salvationek/Supra-Posilovna
+ * @author Martin Mašata <masatma1@fel.cvut.cz>
+ */
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 use yii\helpers\ArrayHelper;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\ReservationForm */
-/* @var $form ActiveForm */
-
 
     $code_list = ArrayHelper::toArray($reservation_item, [
             'app\models\ReservationItem' => [
@@ -50,7 +53,7 @@ $code_list = ArrayHelper::getColumn($code_list, 'description');
         <?= $form->field($reservation, 'uid') -> hiddenInput() -> label(false) ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton('Rezervovat', ['class' => 'btn btn-primary']) ?>
         </div>
     <?php ActiveForm::end(); ?>
 

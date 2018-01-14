@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = 'Upravit';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'themes' => $themes,
     ]) ?>
 
 </div>

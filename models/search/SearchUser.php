@@ -1,4 +1,8 @@
 <?php
+/**
+ * @see https://github.com/Salvationek/Supra-Posilovna
+ * @author Martin Mašata <masatma1@fel.cvut.cz>
+ */
 
 namespace app\models\search;
 
@@ -8,12 +12,14 @@ use yii\data\ActiveDataProvider;
 use app\models\User;
 
 /**
- * SearchUser represents the model behind the search form of `app\models\User`.
+ * Model pro filtraci uživatelů založený na třídě User. Používá se v UserControlleru pro výpis uživatelů.
  */
 class SearchUser extends User
 {
     /**
-     * @inheritdoc
+     * Metoda vygenerovaná modulem GII. Vrací validační parametry pro vstupní pole filtru.
+     *
+     * @return array
      */
     public function rules()
     {
@@ -24,7 +30,9 @@ class SearchUser extends User
     }
 
     /**
-     * @inheritdoc
+     * Metoda vygenerovaná modulem GII. Obchází scénáře základní třídy User.
+     *
+     * @return array
      */
     public function scenarios()
     {
@@ -33,9 +41,10 @@ class SearchUser extends User
     }
 
     /**
-     * Creates data provider instance with search query applied
+     * Metoda která prohledává Usery v databázi dle parametrů.
+     * Zadáme parametr, v databázi se tento parametr vyhledává, následně se vypíší všechny uživatelé, kteří se shodují s hledaným parametrem.
      *
-     * @param array $params
+     * @param array $params Pole parametrů, které metoda použije pro tvorbu Query
      *
      * @return ActiveDataProvider
      */
@@ -43,7 +52,6 @@ class SearchUser extends User
     {
         $query = User::find();
 
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -52,12 +60,12 @@ class SearchUser extends User
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
-        // grid filtering conditions
+        /**
+         * Vyfiltruje parametry z GRIDu - uid a active
+         */
         $query->andFilterWhere([
             'uid' => $this->uid,
             'active' => $this->active,

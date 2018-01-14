@@ -1,4 +1,8 @@
 <?php
+/**
+ * @see https://github.com/Salvationek/Supra-Posilovna
+ * @author Martin Mašata <masatma1@fel.cvut.cz>
+ */
 
 namespace app\controllers;
 
@@ -12,10 +16,18 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
+/**
+ * Controller pro základní funkcionalitu webu. Většina obsažených akcí nevyžaduje přihlášení.
+ *
+ * @see https://github.com/Salvationek/Supra-Posilovna
+ * @author Martin Mašata <masatma1@fel.cvut.cz>
+ */
 class SiteController extends Controller
 {
     /**
-     * @inheritdoc
+     * Metoda behaviors povolí vstup na konkretní stránky pro přidělené role uživatelů. Je volaná frameworkem před voláním konkrétní akce.
+     * Jde o poděděnou metodu z předka \yii\base\Component.
+     * @return array
      */
     public function behaviors()
     {
@@ -41,24 +53,20 @@ class SiteController extends Controller
     }
 
     /**
-     * @inheritdoc
+     * Implementace virtuální metody yii\base\Controller, která se stará o spouštění externích akcí. V našem případě implementuje třídu pro správné vykreslení chyb.
+     * @return array
      */
     public function actions()
     {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
+            ]
         ];
     }
 
     /**
-     * Displays homepage.
-     *
+     * Metoda index, která vyrenderuje domovskou stránku webu.
      * @return string
      */
     public function actionIndex()
@@ -67,8 +75,9 @@ class SiteController extends Controller
     }
 
     /**
-     * Login action.
-     *
+     * Metoda pro přihlášení uživatelů. Porovná zadaného uživatele se záznamy v DB. V případě shody s DB uživatele zaloguje.
+     * Uživatelské heslo je kryptováno standartními metodami Yii2 frameworku. Bližší informace v User::login().
+     * Po uspěšném přihlášení uživatele přesměruje na homepage.
      * @return Response|string
      */
     public function actionLogin()
@@ -90,8 +99,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Logout action.
-     *
+     * Metoda odhlásí přihlášeného uživatele a přesměruje ho na domovskou stránku.
      * @return Response
      */
     public function actionLogout()
@@ -102,7 +110,10 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays contact page.
+     * Metoda vytvoří model registračního formuláře, který následně uloží nebo zobrazí.
+     * V případě ukládání načte data z postu requestu a následně uloží do databáze. Zobrazí uživateli zprávu o úspěchu či neúspěchu a přesměruje ho na login.
+     * V případě zobrazení vyrenderuje registrační formulář.
+     * Formulář validuje podle pravidel nastavených v metodě SiteController::behaviors. V případě chyb zbarví hodnoty, které nesplňují podmínky.
      *
      * @return Response|string
      */

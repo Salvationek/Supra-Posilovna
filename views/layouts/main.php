@@ -11,6 +11,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -21,7 +22,10 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+<?php
+    $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/favicon.png']);
+    $this->head();
+?>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -39,6 +43,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Úvod', 'url' => ['/site/index']],
+            ['label' => 'PhpDoc', 'url' => 'doc'],
             ['label' => 'Uživatelé', 'url' => ['/user/index'], 'visible' => Yii::$app->user->can('admin')],
             ['label' => 'Registrace', 'url' => ['/site/registration'], 'visible' => Yii::$app->user->isGuest],
             ['label' => 'Správa rezervací', 'url' => ['/reservation/list'], 'visible' => Yii::$app->user->can('admin')],
@@ -70,13 +75,6 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>
