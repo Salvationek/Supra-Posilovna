@@ -42,21 +42,21 @@ $this->params['breadcrumbs'][] = $this->title;
         echo Html::beginTag('thead');
 
             // hlavicka hodin
-            echo Html::beginTag('tr',['scope' => 'row']);
-                echo Html::tag('th','hodina',['scope' => 'col']);
+            echo Html::beginTag('tr');
+                echo Html::tag('th','hodina');
                 foreach ($hours as $hour)
                 {
-                    echo Html::tag('th', $hour['title'],['colspan' => 4, 'scope' => 'col']);
+                    echo Html::tag('th', $hour['title'],['colspan' => 4]);
                 }
             echo Html::endTag('tr');
 
             // hlavicka ctvrthodin
-            echo Html::beginTag('tr',['scope' => 'row']);
-                echo Html::tag('th','minuta',['scope' => 'col']);
+            echo Html::beginTag('tr');
+                echo Html::tag('th','minuta');
                 foreach ($hours as $hour)
                 {
                     foreach ($hour['quarters'] as $quarter) {
-                        echo Html::tag('th', $quarter['title'], ['scope' => 'col']);
+                        echo Html::tag('th', $quarter['title']);
                     }
                 }
             echo Html::endTag('tr');
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         foreach ($reservation_item as $item)
         {
-            echo Html::beginTag('tr',['scope' => 'row']);
+            echo Html::beginTag('tr');
                 // hlavicka s popisem rezervacniho predmetu
                 echo Html::tag('th', $item->description);
 
