@@ -98,9 +98,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             $td_onclick = ['onClick' => "reserve('$date' ,$quarterId, $riid, $uid)"];
                         }
 
-                        echo Html::tag('td', '', [
-                                ArrayHelper::merge($td_class, $td_class)
-                        ]);
+                        echo Html::tag('td', '',
+                            ArrayHelper::merge($td_class, $td_onclick)
+                        );
                     }
                 }
             echo Html::endTag('tr');
