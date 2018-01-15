@@ -1,10 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Martin
- * Date: 13.01.2018
- * Time: 17:54
+ * @see https://github.com/Salvationek/Supra-Posilovna
+ * @author Martin Mašata <masatma1@fel.cvut.cz>
  */
+
 
 namespace app\models;
 
@@ -23,7 +22,12 @@ class ReservationForm extends Model
     public $note;
 
 
-
+    /**
+     * Metoda vrací validační pravidla pro případnou validaci načítaných parametrů. Metoda je volaná frameworkem automaticky
+     * při načítání parametrů.
+     *
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -33,6 +37,11 @@ class ReservationForm extends Model
         ];
     }
 
+    /**
+     * Metoda vrací popisky pro případné zobrazení v reservation. Metoda je volaná frameworkem automaticky
+     * v případě potřeby. V našem případě se zobrazují v rezervačním formuláři.
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -43,6 +52,9 @@ class ReservationForm extends Model
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function persist()
     {
         if ($this->validate()){

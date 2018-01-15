@@ -1,22 +1,28 @@
 <?php
+/**
+ * @see https://github.com/Salvationek/Supra-Posilovna
+ * @author Martin Mašata <masatma1@fel.cvut.cz>
+ */
 
 namespace app\models;
 
 use Yii;
 
 /**
- * This is the model class for table "theme".
+ * Model pro tabulku "theme" v databázi.
  *
- * @property int $tid
- * @property string $value
- * @property string $description
+ * @property int $tid Identifikátor téma.
+ * @property string $value Proměnná, která má v sobě název cílového css souboru.
+ * @property string $description Popis tématu.
  *
  * @property User[] $users
  */
 class Theme extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * Statická metoda volaná z frameworku. Díky této metodě framework ví, jak se jmenuje tabulka, se kterou třída pracuje.
+     *
+     * @return string
      */
     public static function tableName()
     {
@@ -24,7 +30,10 @@ class Theme extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * Metoda vrací validační pravidla pro případnou validaci načítaných parametrů. Metoda je volaná frameworkem automaticky
+     * při načítání parametrů.
+     *
+     * @return array
      */
     public function rules()
     {
@@ -35,7 +44,9 @@ class Theme extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * Metoda vrací popisky pro případné zobrazení. Metoda je volaná frameworkem automaticky
+     * v případě potřeby. V našem případě popisky nevyužíváme.
+     * @return array
      */
     public function attributeLabels()
     {
@@ -47,6 +58,7 @@ class Theme extends \yii\db\ActiveRecord
     }
 
     /**
+     * Metoda, která vrací identifikátor téma pro konkrétního uživatele.
      * @return \yii\db\ActiveQuery
      */
     public function getUsers()

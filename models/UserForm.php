@@ -1,10 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Martin
- * Date: 13.01.2018
- * Time: 17:54
+ * @see https://github.com/Salvationek/Supra-Posilovna
+ * @author Martin Mašata <masatma1@fel.cvut.cz>
  */
+
 
 namespace app\models;
 
@@ -32,6 +31,12 @@ class UserForm extends Model
         }
     }
 
+    /**
+     * Metoda vrací validační pravidla pro případnou validaci načítaných parametrů. Metoda je volaná frameworkem automaticky
+     * při načítání parametrů.
+     *
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -49,7 +54,11 @@ class UserForm extends Model
         ];
     }
 
-
+    /**
+     * Metoda vrací popisky pro případné zobrazení v update. Metoda je volaná frameworkem automaticky
+     * v případě potřeby. V našem případě se zobrazují ve formuláři pro úpravu účtu uživatele.
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -62,6 +71,12 @@ class UserForm extends Model
         ];
     }
 
+    /**
+     *
+     * @return bool
+     * @throws \Exception
+     * @throws \yii\base\Exception
+     */
     public function saveUser()
     {
         if ($this->validate()){
@@ -88,6 +103,9 @@ class UserForm extends Model
         }
     }
 
+    /**
+     * Metoda načte z databáze všechny informace o konrétním uživateli.
+     */
     public function loadUser() {
         $this->uid = $this->user->uid;
         $this->username = $this->user->username;

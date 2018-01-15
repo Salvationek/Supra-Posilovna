@@ -117,7 +117,7 @@ a.desc:after {
 }
 
 .mainblock {
-    background-color: rgba(110, 110, 110, 0.65);
+    background-color: rgba(0, 0, 0, 0.65);
     border: 5px solid black;
 }
 
@@ -133,7 +133,7 @@ td {
     border: 1px solid white;
 }
 
-td:hover {
+.table-responsive td:hover {
     background-color: white;
 }
 

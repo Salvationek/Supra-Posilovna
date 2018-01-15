@@ -1,21 +1,27 @@
 <?php
+/**
+ * @see https://github.com/Salvationek/Supra-Posilovna
+ * @author Martin Mašata <masatma1@fel.cvut.cz>
+ */
 
 namespace app\models;
 
 use Yii;
 
 /**
- * This is the model class for table "reservation_item".
+ * Toto je model pro tabulku "reservation_item" v databázi.
  *
- * @property string $riid
- * @property string $description
+ * @property string $riid Identifikátor místnosti.
+ * @property string $description Název místnosti.
  *
  * @property Reservation[] $reservations
  */
 class ReservationItem extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * Statická metoda volaná z frameworku. Díky této metodě framework ví, jak se jmenuje tabulka, se kterou třída pracuje.
+     *
+     * @return string
      */
     public static function tableName()
     {
@@ -23,7 +29,10 @@ class ReservationItem extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * Metoda vrací validační pravidla pro případnou validaci načítaných parametrů. Metoda je volaná frameworkem automaticky
+     * při načítání parametrů.
+     *
+     * @return array
      */
     public function rules()
     {
@@ -34,7 +43,9 @@ class ReservationItem extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * Metoda vrací popisky pro případné zobrazení. Metoda je volaná frameworkem automaticky
+     * v případě potřeby. V našem případě tyto popisky nevyužíváme.
+     * @return array
      */
     public function attributeLabels()
     {

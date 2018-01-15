@@ -39,8 +39,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
     <?php ActiveForm::end(); ?>
-
-    <div class="col-lg-offset-1" style="color:#999;">
-       Můžete se přihlásit jako <strong>supraadmin/supraadmin</strong> nebo <strong>franta1/franta123</strong>.<br>
-    </div>
+    
 </div>

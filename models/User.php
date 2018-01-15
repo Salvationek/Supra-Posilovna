@@ -169,6 +169,10 @@ class User extends ActiveRecord implements IdentityInterface
         $this->password = Yii::$app->security->generatePasswordHash($password);
     }
 
+    /**
+     * Metoda vrací identifikátor téma.
+     * @return \yii\db\ActiveQuery
+     */
     public function getTheme()
     {
         return $this->hasOne(Theme::className(), ['tid' => 'tid']);
