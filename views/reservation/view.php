@@ -91,9 +91,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         $riid = $item->riid;
                         $uid = Yii::$app->user->id;
 
+                        $td_class = ['class' => ($hasCurrentUserReservation) ? 'success' : (($hasOtherUserReservation) ? 'danger' : null)];
+                        $td_onclick = [];
+
+                        if (isset($uid)) {
+                            $td_onclick = ['onClick' => "reserve('$date' ,$quarterId, $riid, $uid)"];
+                        }
+
                         echo Html::tag('td', '', [
-                                'class' => ($hasCurrentUserReservation) ? 'success' : (($hasOtherUserReservation) ? 'danger' : null),
-                                'onClick' => "reserve('$date' ,$quarterId, $riid, $uid)"
+                                ArrayHelper::merge($td_class, $td_class)
                         ]);
                     }
                 }
