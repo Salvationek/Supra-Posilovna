@@ -53,9 +53,12 @@ class ReservationForm extends Model
     }
 
     /**
+     * Metoda validuje všechna pole, poté uloží odpovídající rozsah čtvrthodin do databáze. Pro každou čtvrthodinu jeden záznam.
+     * V případě jakékoli chyby vrací false.
+     *
      * @return bool
      */
-    public function persist()
+    public function saveReservation()
     {
         if ($this->validate()){
             $values = [];

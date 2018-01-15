@@ -56,13 +56,4 @@ class Theme extends \yii\db\ActiveRecord
             'description' => 'Description',
         ];
     }
-
-    /**
-     * Metoda, která vrací identifikátor téma pro konkrétního uživatele.
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsers()
-    {
-        return $this->hasMany(User::className(), ['tid' => 'tid']);
-    }
 }

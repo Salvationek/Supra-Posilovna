@@ -84,11 +84,11 @@ class LoginForm extends Model
     }
 
     /**
-     * Metoda, která hledá shodu se zadaným uživatelem a uživateli v databázi.
+     * Metoda, která hledá uživatele v databázi podle uživatelského jména. Jako uživatelské jméno použije aktuálně vyplněné jméno.
      *
      * @return User|null
      */
-    public function getUser()
+    private function getUser()
     {
         if ($this->_user === false) {
             $this->_user = User::findByUsername($this->username);

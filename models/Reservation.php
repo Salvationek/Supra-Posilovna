@@ -8,7 +8,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "reservation".
+ * Model reprezentující záznam tabulky reservation. Jde o potomka ActiveRecord.
  *
  * @property string $date datum rezervace
  * @property int $quarter počet čtvrthodin od začátku dne
@@ -53,6 +53,7 @@ class Reservation extends \yii\db\ActiveRecord
     /**
      * Metoda vrací popisky pro případné zobrazení ve view. Metoda je volaná frameworkem automaticky
      * v případě potřeby. V našem případě se zobrazují v rezervačním systému.
+     *
      * @return array
      */
     public function attributeLabels()
@@ -70,7 +71,8 @@ class Reservation extends \yii\db\ActiveRecord
     }
 
     /**
-     * Metoda vrací identifikátor místnosti.
+     * Metoda vrací připravené Query pro konkrétní rezervační položku. Snadno se tak můžeme dotázat například na popisek položky.
+     *
      * @return \yii\db\ActiveQuery
      */
     public function getRi()
@@ -79,15 +81,19 @@ class Reservation extends \yii\db\ActiveRecord
     }
 
     /**
-     * Metoda, která vrací identifikátor uživatele.
+     * Metoda vrací připravené Query pro konkrétního uživatele. Snadno se tak můžeme dotázat například na jméno uživatele.
+     *
      * @return \yii\db\ActiveQuery
      */
+
     public function getU()
     {
         return $this->hasOne(User::className(), ['uid' => 'uid']);
     }
 
     /**
+     * Metoda zjistí uživatelské jméno z aktuální rezervace.
+     *
      * @return mixed
      */
     public function getUsername()
@@ -96,7 +102,9 @@ class Reservation extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return string
+     * Metoda zjistí jméno místnosti z aktuální rezervace.
+     *
+     * @return mixed
      */
     public function getDescription()
     {
@@ -104,6 +112,7 @@ class Reservation extends \yii\db\ActiveRecord
     }
 
     /**
+     * Převede libovolný identifikátor čtvrthodiny na čas.
      * @param $quarters
      * @return false|int
      */
@@ -113,6 +122,7 @@ class Reservation extends \yii\db\ActiveRecord
     }
 
     /**
+     * Převede identifikátor čtvrthodiny v objektu na čas.
      * @return false|int
      */
     public function getQuarterTime()
@@ -121,8 +131,9 @@ class Reservation extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param $date
-     * @return static[]
+     * Metoda hledá v databázi všechny rezervace na zadané datum.
+     * @param $date Datum rezervace
+     * @return static[]|null
      */
     public static function findByDate($date)
     {

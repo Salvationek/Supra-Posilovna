@@ -104,7 +104,7 @@ class ReservationController extends \yii\web\Controller
         $reservation->riid=$riid;
         $reservation->uid=(isset($uid)? $uid: Yii::$app->user->id);
         if ($reservation->load(Yii::$app->request->post())) {
-            if ($reservation->persist()) {
+            if ($reservation->saveReservation()) {
                 Yii::$app->session->setFlash('success', "Rezervace úspěšně uložena");
             } else {
                 Yii::$app->session->setFlash('danger', "Chyba při ukládání rezervace.");

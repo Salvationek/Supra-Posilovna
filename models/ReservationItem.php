@@ -54,12 +54,4 @@ class ReservationItem extends \yii\db\ActiveRecord
             'description' => 'Description',
         ];
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getReservations()
-    {
-        return $this->hasMany(Reservation::className(), ['riid' => 'riid']);
-    }
 }

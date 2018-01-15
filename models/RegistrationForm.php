@@ -12,6 +12,10 @@ use yii\base\Model;
 use yii\db\Exception;
 use Yii;
 
+/**
+ * Model formuláře pro registraci uživatelů. Narozdíl od UserForm vytvoří uživatele s nižšími právy. Také nepočítá s některými poli.
+ * @package app\models
+ */
 class RegistrationForm extends Model
 {
     public $user;
@@ -21,6 +25,12 @@ class RegistrationForm extends Model
     public $password;
     public $password_repeat;
 
+    /**
+     * Konstruktor třídy. Pokusí se zinicializovat obsažený ActiveRecord (User), pokud dostane parametrem ID uživatele.
+     * Pokud uživatele najde, načte všechny potřebné pole do proměnných třídy.
+     *
+     * @param integer|null $uid Identifikátor uživatele.
+     */
     public function __construct($uid = null) {
         if (isset($uid)) {
             $this->user = User::findOne($uid);
@@ -69,6 +79,9 @@ class RegistrationForm extends Model
     }
 
     /**
+     * Metoda uloží všechny proměnné třídy do připraveného ActiveRecordu a uloží je do databáze.
+     * Postará se i o nastavení práv pomocí vestavěného modulu frameworku.
+     * Vrací false pokud nastane jakákoli chyba.
      * @return bool
      * @throws \Exception
      * @throws \yii\base\Exception
@@ -99,7 +112,7 @@ class RegistrationForm extends Model
     }
 
     /**
-     *
+     * Metoda načte všechna důležitá pole z proměnné $this->user do proměnných této třídy. Zbývající proměnné zinicializuje na ''.
      */
     public function loadUser() {
         $this->uid = $this->user->uid;
